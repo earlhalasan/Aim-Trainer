@@ -12,6 +12,7 @@ class Target {
     this.radius = radius;
     this.alive = true;
   }
+
   render() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
@@ -22,12 +23,23 @@ class Target {
     ctx.stroke();
     ctx.closePath();
   }
+
+  nextTarget() {
+    ctx.clearRect(0, 0, game.width, game.height);
+  }
+
   clickTarget(xpos, ypos) {
     console.log("x: " + xpos + " y: " + ypos);
     const distance = Math.sqrt(
       (xpos - this.x) * (xpos - this.x) + (ypos - this.y) * (ypos - this.y)
     );
     console.log(distance);
+    if (distance < this.radius) {
+      this.nextTarget();
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
@@ -36,7 +48,7 @@ class Target {
 //   const runGame = setInterval(gameLoop, 120);
 // })();
 
-let targ = new Target(50, 50, "#F1B2DC", 40);
+let targ = new Target(200, 200, "#F1B2DC", 40);
 targ.render(ctx);
 // console.log(targ);
 // targ.render();
@@ -45,7 +57,7 @@ game.addEventListener("click", function (e) {
   const circle = game.getBoundingClientRect();
   const xpos = e.clientX - circle.left;
   const ypos = e.clientY - circle.top;
-  targ.clickTarget(xpos, ypos);
+  console.log(targ.clickTarget(xpos, ypos));
 });
 
 // (function () {})();
