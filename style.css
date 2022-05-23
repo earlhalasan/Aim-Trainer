@@ -17,14 +17,19 @@ body {
 
 h1 {
   color: #f5f5f5;
-  margin: -20px;
+  margin: -15px 0px -30px 0px;
   font-size: 48px;
+  padding: 20px;
+}
+
+#top-left {
+  text-align: left;
 }
 
 canvas {
   background-color: #c5d5e4;
   border-radius: 30px;
-  object-fit: contain;
+  object-fit: fill;
   margin: 15px;
   padding: 30px;
   width: 90%;
@@ -37,4 +42,5 @@ canvas {
   background-color: #8896ab;
   border-radius: 30px;
   margin: 0 auto;
+  display: grid;
 }
