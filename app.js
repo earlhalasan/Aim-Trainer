@@ -10,7 +10,6 @@ class Target {
     this.y = y;
     this.color = color;
     this.radius = radius;
-    // this.width = width;
     this.alive = true;
   }
   render() {
@@ -24,7 +23,11 @@ class Target {
     ctx.closePath();
   }
   clickTarget(xpos, ypos) {
-    console.log(xpos, ypos);
+    console.log("x: " + xpos + " y: " + ypos);
+    const distance = Math.sqrt(
+      (xpos - this.x) * (xpos - this.x) + (ypos - this.y) * (ypos - this.y)
+    );
+    console.log(distance);
   }
 }
 
@@ -33,15 +36,15 @@ class Target {
 //   const runGame = setInterval(gameLoop, 120);
 // })();
 
-let targ = new Target(30, 30, "#F1B2DC", 25);
-console.log(targ);
-targ.render();
+let targ = new Target(50, 50, "#F1B2DC", 40);
+targ.render(ctx);
+// console.log(targ);
+// targ.render();
 
 game.addEventListener("click", function (e) {
   const circle = game.getBoundingClientRect();
   const xpos = e.clientX - circle.left;
   const ypos = e.clientY - circle.top;
-  //   console.log("x: " + xpos + " y: " + ypos);
   targ.clickTarget(xpos, ypos);
 });
 

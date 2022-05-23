@@ -29,11 +29,11 @@ h1 {
 canvas {
   background-color: #c5d5e4;
   border-radius: 30px;
-  object-fit: fill;
+  /* object-fit: fill; */
   margin: 15px;
-  padding: 30px;
-  width: 90%;
-  height: 200;
+  /* padding: 30px; */
+  width: 95%;
+  /* height: 100; */
 }
 
 #container {
@@ -42,5 +42,6 @@ canvas {
   background-color: #8896ab;
   border-radius: 30px;
   margin: 0 auto;
+  padding: 5px;
   display: grid;
 }
