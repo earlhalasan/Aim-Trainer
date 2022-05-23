@@ -23,20 +23,27 @@ class Target {
     ctx.stroke();
     ctx.closePath();
   }
+  clickTarget(xpos, ypos) {
+    console.log(xpos, ypos);
+  }
 }
 
 // (function () {
-//   target = new Target(10, 20, "#F1B2DC", 20, 20);
+//   target = new Target(30, 30, "#F1B2DC", 25);
 //   const runGame = setInterval(gameLoop, 120);
 // })();
 
-let rambo = new Target(30, 30, "#F1B2DC", 25);
-console.log(rambo);
-rambo.render();
+let targ = new Target(30, 30, "#F1B2DC", 25);
+console.log(targ);
+targ.render();
 
-// function gameLoop() {
-//   ctx.clearRect(0, 0, game.width, game.height);
-// }
+game.addEventListener("click", function (e) {
+  const circle = game.getBoundingClientRect();
+  const xpos = e.clientX - circle.left;
+  const ypos = e.clientY - circle.top;
+  //   console.log("x: " + xpos + " y: " + ypos);
+  targ.clickTarget(xpos, ypos);
+});
 
 // (function () {})();
 
