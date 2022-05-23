@@ -19,7 +19,7 @@ I plan on building this game out using canvas with click event listeners. It wil
 Planning to include menu and game play music, sound effects on successful clicks, and top score display.
 
 ## Wireframes 
-My initial sketch the game.
+My initial sketch the game.  
 <img src="https://i.imgur.com/Hhbni3g.jpeg" width="600"/>  
 
 Drew this out using Figjam. Hoping to go with a flat design for the game similar to what's shown above.  
