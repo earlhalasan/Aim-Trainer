@@ -13,7 +13,7 @@ class Target {
     this.alive = true;
   }
 
-  render() {
+  render(ctx) {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
     ctx.fillStyle = this.color;
@@ -23,7 +23,6 @@ class Target {
     ctx.stroke();
     ctx.closePath();
   }
-
   nextTarget() {
     ctx.clearRect(0, 0, game.width, game.height);
   }
@@ -35,7 +34,9 @@ class Target {
     );
     console.log(distance);
     if (distance < this.radius) {
-      this.nextTarget();
+      //   this.nextTarget();
+      gameLoop();
+      //   addNewTarget();
       return true;
     } else {
       return false;
@@ -43,24 +44,38 @@ class Target {
   }
 }
 
-// (function () {
-//   target = new Target(30, 30, "#F1B2DC", 25);
-//   const runGame = setInterval(gameLoop, 120);
-// })();
+function gameLoop() {
+  function newTarget() {
+    let x = Math.floor(Math.random() * game.width - 100) + 50;
+    let y = Math.floor(Math.random() * game.height - 100) + 50;
+    target = new Target(x, y, "#F1B2DC", 30);
+    ctx.clearRect(0, 0, game.width, game.height);
+    target.render(ctx);
+    target.clickTarget();
+  }
+  //   newTarget();
+  setInterval(newTarget, 5000);
+  // reset setInterval
+}
 
-let targ = new Target(200, 200, "#F1B2DC", 40);
-targ.render(ctx);
-// console.log(targ);
-// targ.render();
+gameLoop();
 
 game.addEventListener("click", function (e) {
   const circle = game.getBoundingClientRect();
   const xpos = e.clientX - circle.left;
   const ypos = e.clientY - circle.top;
-  console.log(targ.clickTarget(xpos, ypos));
+  console.log(target.clickTarget(xpos, ypos));
 });
 
-// (function () {})();
+// function addNewTarget() {
+//   targ.alive = false;
+//   setTimeout(function () {
+//     let x = Math.floor(Math.random() * game.width - 100) + 50;
+//     let y = Math.floor(Math.random() * game.height - 100) + 50;
+//     newestTarg = new Target(x, y, "#F1B2DC", 40);
+//   }, 100);
+//   return true;
+// // }
 
 // window.addEventListener("DOMContentLoaded", function (e) {});
 // sectInterval = for how long a target can appear on screen
