@@ -54,11 +54,12 @@ function gameLoop() {
     target.clickTarget();
   }
   //   newTarget();
-  setInterval(newTarget, 5000);
+  setTimeout(newTarget, 1000);
   // reset setInterval
 }
 
 gameLoop();
+// setInterval(newTarget, 5000);
 
 game.addEventListener("click", function (e) {
   const circle = game.getBoundingClientRect();
