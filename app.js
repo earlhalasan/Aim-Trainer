@@ -1,6 +1,7 @@
 let game = document.querySelector("#game");
 let target;
 let ctx = game.getContext("2d");
+let score = document.querySelector("#score");
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 
@@ -34,9 +35,13 @@ class Target {
     );
     console.log(distance);
     if (distance < this.radius) {
-      this.nextTarget();
+      // this.nextTarget();
       gameLoop();
       //   addNewTarget();
+      let gameScore = Number(score.textContent);
+      let newScore = gameScore + 1;
+      score.textContent = newScore;
+      //
       return true;
     } else {
       return false;
@@ -54,7 +59,7 @@ function gameLoop() {
     target.clickTarget();
   }
   //   newTarget();
-  setTimeout(newTarget, 1000);
+  setTimeout(newTarget, 100);
   // reset setInterval
 }
 

@@ -22,8 +22,19 @@ h1 {
   padding: 20px;
 }
 
+h2 {
+  color: #f5f5f5;
+  margin: -15px 0px -30px 0px;
+  font-size: 36px;
+  padding: 20px;
+}
+
 #top-left {
   text-align: left;
+}
+
+#top-right {
+  text-align: right;
 }
 
 canvas {
