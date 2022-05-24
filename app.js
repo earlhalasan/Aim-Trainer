@@ -46,8 +46,8 @@ class Target {
 
 function gameLoop() {
   function newTarget() {
-    let x = Math.floor(Math.random() * game.width - 100) + 50;
-    let y = Math.floor(Math.random() * game.height - 100) + 50;
+    let x = Math.floor(Math.random() * game.width);
+    let y = Math.floor(Math.random() * game.height);
     target = new Target(x, y, "#F1B2DC", 30);
     ctx.clearRect(0, 0, game.width, game.height);
     target.render(ctx);
