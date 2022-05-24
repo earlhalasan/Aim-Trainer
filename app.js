@@ -34,7 +34,7 @@ class Target {
     );
     console.log(distance);
     if (distance < this.radius) {
-      //   this.nextTarget();
+      this.nextTarget();
       gameLoop();
       //   addNewTarget();
       return true;
