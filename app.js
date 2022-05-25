@@ -125,24 +125,12 @@ function animated() {
   };
 
   updateTarget();
-
-  // movingTarget.clickTarget();
 }
 animated();
 console.log(targetList, "this is List");
 
 let counter = document.querySelector("#countdown");
 console.log(counter);
-
-let count = 15;
-let timer = setInterval(function () {
-  document.querySelector("#countdown").innerHTML = count;
-  count--;
-  if (count === 0) {
-    clearInterval(timer);
-    document.querySelector("#countdown").innerHTML = "Game Over";
-  }
-}, 1000);
 
 gameLoop();
 // setInterval(newTarget, 5000);
@@ -173,8 +161,13 @@ game.addEventListener("click", function (e) {
     missedCount++;
     missed.textContent = `${missedCount}`;
   }
+  if (missedCount >= 5) {
+    // alert("Game Over");
+    ctx.clearRect(0, 0, game.width, game.height);
+  }
 });
 
+// CODE GRAVEYARD BELOW
 // function addNewTarget() {
 //   targ.alive = false;
 //   setTimeout(function () {
