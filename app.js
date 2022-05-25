@@ -126,13 +126,13 @@ function animated() {
 
   updateTarget();
 }
-animated();
+// animated();
 console.log(targetList, "this is List");
 
 let counter = document.querySelector("#countdown");
 console.log(counter);
 
-gameLoop();
+// gameLoop();
 // setInterval(newTarget, 5000);
 
 game.addEventListener("click", function (e) {
@@ -165,6 +165,10 @@ game.addEventListener("click", function (e) {
     // alert("Game Over");
     ctx.clearRect(0, 0, game.width, game.height);
   }
+});
+
+document.getElementById("start").addEventListener("click", function () {
+  animated();
 });
 
 // CODE GRAVEYARD BELOW
