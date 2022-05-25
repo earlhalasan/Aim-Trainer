@@ -1,6 +1,5 @@
 let game = document.querySelector("#game");
-let target;
-let distraction;
+let movingTarget;
 let ctx = game.getContext("2d");
 let score = document.querySelector("#score");
 let gameScore = Number(score.textContent);
@@ -8,6 +7,7 @@ let missed = document.querySelector("#missed");
 let missedCount = Number(missed.textContent);
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
+let gameOn;
 
 class Target {
   constructor(x, y, color, colorTwo, radius, speed) {
@@ -32,9 +32,6 @@ class Target {
     ctx.stroke();
     ctx.closePath();
   }
-  nextTarget() {
-    ctx.clearRect(0, 0, game.width, game.height);
-  }
 
   // FOR ANIMATED TARGET. Wasn't able to get the moving target to click
   floatingTarget() {
@@ -57,89 +54,35 @@ class Target {
     this.x += this.dx;
     this.y += this.dy;
   }
-
-  clickTarget(xpos, ypos) {
-    console.log("x: " + xpos + " y: " + ypos);
-    const distance = Math.sqrt(
-      (xpos - this.x) * (xpos - this.x) + (ypos - this.y) * (ypos - this.y)
-    );
-    console.log(distance);
-    if (distance < this.radius) {
-      gameLoop();
-      // let gameScore = Number(score.textContent);
-      let newScore = gameScore + 1;
-      score.textContent = newScore;
-      if (score === 15) {
-        alert("You won!");
-      }
-      // let myInterval = setInterval(newTarget, 5000);
-      // clearInterval(myInterval);
-      //
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-
-function gameLoop() {
-  function newTarget() {
-    let x = Math.floor(Math.random() * game.width);
-    let y = Math.floor(Math.random() * game.height);
-    target = new Target(x, y, "#F1B2DC", "#466362", 15, 0);
-    ctx.clearRect(0, 0, game.width, game.height);
-    target.render(ctx);
-    target.clickTarget();
-  }
-
-  // THIS WORKS -->
-  setTimeout(newTarget, 100);
-  // setTimeout(animated, 4000);
-  // let timeOut = setTimeout(newTarget, 100);
-
-  // THIS NOT SO MUCH -->
-  // let newTargetInterval = setInterval(newTarget, 5000);
-  // let myInterval
-  // console.log(myInterval);
-  // clearInterval(myInterval);
-
-  // if ((clickTarget = false)) {
-  //   setInterval(newTarget, 5000);
-  // }
-
-  // reset setInterval
 }
 
 let targetList = [];
+
+function clearAll() {
+  ctx.clearRect(0, 0, game.width, game.height);
+}
+
 function animated() {
   let x = Math.floor(Math.random() * (game.width - 30)) + 30;
   let y = Math.floor(Math.random() * (game.height - 30)) + 30;
-  movingTarget = new Target(x, y, "#F1B2DC", "#466362", 35, 0.15);
+  movingTarget = new Target(x, y, "#F1B2DC", "#466362", 35, 0.2);
   // ctx.clearRect(0, 0, game.width, game.height);
   targetList.push(movingTarget);
   movingTarget.render(ctx);
 
   let updateTarget = function () {
-    requestAnimationFrame(updateTarget);
+    clearAll();
+    ctx.beginPath();
+    gameOn = window.requestAnimationFrame(updateTarget);
     movingTarget.floatingTarget();
   };
 
   updateTarget();
 }
-// animated();
+
 console.log(targetList, "this is List");
 
-let counter = document.querySelector("#countdown");
-console.log(counter);
-
-// gameLoop();
-// setInterval(newTarget, 5000);
-
 game.addEventListener("click", function (e) {
-  // const circle = game.getBoundingClientRect();
-  // const xpos = e.clientX - circle.left;
-  // const ypos = e.clientY - circle.top;
-  // console.log(target.clickTarget(xpos, ypos));
   let myTarget = targetList[0];
   console.log(myTarget.x, myTarget.y);
   let clickTargetDifference = Math.sqrt(
@@ -150,7 +93,6 @@ game.addEventListener("click", function (e) {
     ? (clickHappened = true)
     : (clickHappened = false);
   console.log(clickHappened);
-  // console.log(e.offsetX, e.offsetY);
   if (clickHappened === true) {
     targetList.pop();
     animated();
@@ -162,13 +104,29 @@ game.addEventListener("click", function (e) {
     missed.textContent = `${missedCount}`;
   }
   if (missedCount >= 5) {
-    // alert("Game Over");
+    missed.textContent = "5 GAME OVER! GG!";
+    score.textContent = gameScore;
     ctx.clearRect(0, 0, game.width, game.height);
   }
 });
 
-document.getElementById("start").addEventListener("click", function () {
-  animated();
+// START GAME AND RESET BUTTON
+document.querySelector("#start").addEventListener("click", function () {
+  if (document.querySelector("#start").textContent === "Start Game") {
+    animated();
+
+    document.querySelector("#start").textContent = "Reset Game";
+    // console.log(document.querySelector("#start").textContent);
+  } else if (document.querySelector("#start").textContent === "Reset Game") {
+    document.querySelector("#start").textContent = "Start Game";
+    // let currentFrameRender = animated();
+    // requestAnimationFrame(currentFrameRender);
+    // setTimeout(() => (currentFrameRender = undefined), 100);
+    location.reload();
+
+    score.textContent = "0";
+    missed.textContent = "0";
+  }
 });
 
 // CODE GRAVEYARD BELOW
