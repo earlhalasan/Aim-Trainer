@@ -32,7 +32,7 @@ h2 {
 canvas {
   background-color: #c5d5e4;
   border-radius: 30px;
-  /* object-fit: fill; */
+  object-fit: contain;
   margin: 15px;
   /* padding: 30px; */
   width: 97%;
@@ -51,6 +51,13 @@ canvas {
     "top-left top-left top-right"
     "game game game"
     "btm-left btm-right btm-right";
+}
+
+#bg2 {
+  background-color: #938581;
+  border-radius: 30px;
+  margin: 10px;
+  padding: 40px;
 }
 
 #top-left {
