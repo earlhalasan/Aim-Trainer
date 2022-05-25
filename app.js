@@ -3,9 +3,11 @@ let target;
 let distraction;
 let ctx = game.getContext("2d");
 let score = document.querySelector("#score");
+let gameScore = Number(score.textContent);
+let missed = document.querySelector("#missed");
+let missedCount = Number(missed.textContent);
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
-let gameScore = Number(score.textContent);
 
 class Target {
   constructor(x, y, color, colorTwo, radius, speed) {
@@ -41,10 +43,10 @@ class Target {
     if (this.x + this.radius > game.width) {
       this.dx = -this.dx;
     }
-    if (this.x + this.radius < 60) {
+    if (this.x + this.radius < 70) {
       this.dx = -this.dx;
     }
-    if (this.y + this.radius < 60) {
+    if (this.y + this.radius < 70) {
       this.dy = -this.dy;
     }
     if (this.y + this.radius > game.height) {
@@ -110,9 +112,9 @@ function gameLoop() {
 
 let targetList = [];
 function animated() {
-  let x = Math.floor(Math.random() * game.width);
-  let y = Math.floor(Math.random() * game.height);
-  movingTarget = new Target(x, y, "#F1B2DC", "#466362", 30, 0.5);
+  let x = Math.floor(Math.random() * (game.width - 30)) + 30;
+  let y = Math.floor(Math.random() * (game.height - 30)) + 30;
+  movingTarget = new Target(x, y, "#F1B2DC", "#466362", 35, 0.15);
   // ctx.clearRect(0, 0, game.width, game.height);
   targetList.push(movingTarget);
   movingTarget.render(ctx);
@@ -160,12 +162,16 @@ game.addEventListener("click", function (e) {
     ? (clickHappened = true)
     : (clickHappened = false);
   console.log(clickHappened);
-  console.log(e.offsetX, e.offsetY);
+  // console.log(e.offsetX, e.offsetY);
   if (clickHappened === true) {
     targetList.pop();
     animated();
     gameScore++;
     score.textContent = `${gameScore}`;
+  }
+  if (clickHappened === false) {
+    missedCount++;
+    missed.textContent = `${missedCount}`;
   }
 });
 

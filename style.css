@@ -80,3 +80,9 @@ main {
   margin: -10px 0px 30px 0px;
   grid-area: btm-left;
 }
+
+#btm-right {
+  text-align: right;
+  margin: -10px 0px 30px 0px;
+  grid-area: btm-right;
+}
