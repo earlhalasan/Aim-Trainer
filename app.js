@@ -10,6 +10,7 @@ let targetBreak = new Audio("Target Break.mp3");
 let gamePlayMusic = document.getElementById("gamePlayMusic");
 let menuMusic = document.getElementById("menuMusic");
 let gameOver = new Audio("Game Over.mp3");
+gameOver.volume = 0.6;
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 window.onload = function () {
