@@ -41,7 +41,7 @@ class Target {
     ctx.closePath();
   }
 
-  // FOR ANIMATED TARGET. Wasn't able to get the moving target to click
+  // FOR ANIMATED TARGET
   floatingTarget() {
     ctx.clearRect(0, 0, game.width, game.height);
 
@@ -66,20 +66,16 @@ class Target {
 
 let targetList = [];
 
-function clearAll() {
-  ctx.clearRect(0, 0, game.width, game.height);
-}
-
 function animated() {
   let x = Math.floor(Math.random() * (game.width - 30)) + 30;
   let y = Math.floor(Math.random() * (game.height - 30)) + 30;
   movingTarget = new Target(x, y, "#F1B2DC", "#466362", 35, 0.2);
-  // ctx.clearRect(0, 0, game.width, game.height);
   targetList.push(movingTarget);
   movingTarget.render(ctx);
 
+  // Used requestAnimationFrame and continuously calls upon itself making the circle
+  // go faster on each click
   let updateTarget = function () {
-    clearAll();
     ctx.beginPath();
     gameOn = window.requestAnimationFrame(updateTarget);
     movingTarget.floatingTarget();
@@ -88,11 +84,13 @@ function animated() {
   updateTarget();
 }
 
+// Console logs the empty array above and let's you know there's one drawn circle in array
 console.log(targetList, "this is List");
 
+// Main function of the game here.
 game.addEventListener("click", function (e) {
   let myTarget = targetList[0];
-  console.log(myTarget.x, myTarget.y);
+  // Determines the radius of the circle for hit area
   let clickTargetDifference = Math.sqrt(
     (myTarget.x - e.offsetX) ** 2 + (myTarget.y - e.offsetY) ** 2
   );
@@ -101,6 +99,7 @@ game.addEventListener("click", function (e) {
     ? (clickHappened = true)
     : (clickHappened = false);
   console.log(clickHappened);
+  // Game logic here
   if (clickHappened === true && missedCount < 5) {
     targetList.pop();
     animated();
@@ -113,10 +112,7 @@ game.addEventListener("click", function (e) {
   }
   if (missedCount >= 5) {
     missed.textContent = "5 GAME OVER! GG!";
-    // gameScore++;
     gameOver.play();
-
-    // score.textContent = `${gameScore}`;
   }
 });
 
@@ -128,12 +124,8 @@ document.querySelector("#start").addEventListener("click", function () {
     document.querySelector("#start").textContent = "Reset Game";
     menuMusic.pause();
     gamePlayMusic.play();
-    // console.log(document.querySelector("#start").textContent);
   } else if (document.querySelector("#start").textContent === "Reset Game") {
     document.querySelector("#start").textContent = "Start Game";
-    // let currentFrameRender = animated();
-    // requestAnimationFrame(currentFrameRender);
-    // setTimeout(() => (currentFrameRender = undefined), 100);
     location.reload();
 
     score.textContent = "0";
@@ -142,60 +134,3 @@ document.querySelector("#start").addEventListener("click", function () {
 });
 
 window.addEventListener("DOMContentLoaded", function (e) {});
-
-// CODE GRAVEYARD BELOW
-// function addNewTarget() {
-//   targ.alive = false;
-//   setTimeout(function () {
-//     let x = Math.floor(Math.random() * game.width - 100) + 50;
-//     let y = Math.floor(Math.random() * game.height - 100) + 50;
-//     newestTarg = new Target(x, y, "#F1B2DC", 40);
-//   }, 100);
-//   return true;
-// // }
-
-// window.addEventListener("DOMContentLoaded", function (e) {});
-// sectInterval = for how long a target can appear on screen
-//
-
-// function animated() {
-//   let x = Math.floor(Math.random() * game.width);
-//   let y = Math.floor(Math.random() * game.height);
-//   movingTarget = new Target(x, y, "#F1B2DC", "#466362", 15, 1);
-//   ctx.clearRect(0, 0, game.width, game.height);
-//   movingTarget.render(ctx);
-
-//   let updateTarget = function () {
-//     requestAnimationFrame(updateTarget);
-//     movingTarget.floatingTarget();
-//   };
-
-//   updateTarget();
-
-//   movingTarget.clickTarget();
-// }
-
-// GROUP EFFORT CODE
-// let count = 15;
-// let timer = setInterval(function () {
-//   document.querySelector("#countdown").innerHTML = count;
-//   count--;
-//   gameLoop();
-//   let myInterval = setInterval(newTarget, 5000);
-//   if (count === 0 || target.clickTarget() === true) {
-//     clearInterval(timer);
-//     clearInterval(myInterval);
-//     document.querySelector("#countdown").innerHTML = "Game Over";
-//   }
-// }, 1000);
-
-// ORIGINAL CODE
-// let count = 15;
-// let timer = setInterval(function () {
-//   document.querySelector("#countdown").innerHTML = count;
-//   count--;
-//   if (count === 0) {
-//     clearInterval(timer);
-//     document.querySelector("#countdown").innerHTML = "Game Over";
-//   }
-// }, 1000);
