@@ -5,10 +5,16 @@ let score = document.querySelector("#score");
 let gameScore = Number(score.textContent);
 let missed = document.querySelector("#missed");
 let missedCount = Number(missed.textContent);
-game.setAttribute("height", getComputedStyle(game)["height"]);
-game.setAttribute("width", getComputedStyle(game)["width"]);
 let gameOn;
 let targetBreak = new Audio("Target Break.mp3");
+let gamePlayMusic = document.getElementById("gamePlayMusic");
+let menuMusic = document.getElementById("menuMusic");
+let gameOver = new Audio("Game Over.mp3");
+game.setAttribute("height", getComputedStyle(game)["height"]);
+game.setAttribute("width", getComputedStyle(game)["width"]);
+window.onload = function () {
+  document.getElementById("menuMusic").play();
+};
 
 class Target {
   constructor(x, y, color, colorTwo, radius, speed) {
@@ -107,7 +113,7 @@ game.addEventListener("click", function (e) {
   if (missedCount >= 5) {
     missed.textContent = "5 GAME OVER! GG!";
     // gameScore++;
-    gameScore -= 1;
+    gameOver.play();
 
     // score.textContent = `${gameScore}`;
   }
@@ -119,6 +125,8 @@ document.querySelector("#start").addEventListener("click", function () {
     animated();
 
     document.querySelector("#start").textContent = "Reset Game";
+    menuMusic.pause();
+    gamePlayMusic.play();
     // console.log(document.querySelector("#start").textContent);
   } else if (document.querySelector("#start").textContent === "Reset Game") {
     document.querySelector("#start").textContent = "Start Game";
@@ -131,6 +139,8 @@ document.querySelector("#start").addEventListener("click", function () {
     missed.textContent = "0";
   }
 });
+
+window.addEventListener("DOMContentLoaded", function (e) {});
 
 // CODE GRAVEYARD BELOW
 // function addNewTarget() {

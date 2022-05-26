@@ -112,3 +112,11 @@ main {
 #game {
   cursor: url(Vector.png) 34 34, auto;
 }
+
+#menuMusic {
+  display: none;
+}
+
+#gamePlayMusic {
+  display: none;
+}
