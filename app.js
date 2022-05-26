@@ -8,6 +8,7 @@ let missedCount = Number(missed.textContent);
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 let gameOn;
+let targetBreak = new Audio("Target Break.mp3");
 
 class Target {
   constructor(x, y, color, colorTwo, radius, speed) {
@@ -98,6 +99,7 @@ game.addEventListener("click", function (e) {
     animated();
     gameScore++;
     score.textContent = `${gameScore}`;
+    targetBreak.play();
   } else if (clickHappened === false) {
     missedCount++;
     missed.textContent = `${missedCount}`;
