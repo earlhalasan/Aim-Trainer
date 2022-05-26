@@ -93,20 +93,21 @@ game.addEventListener("click", function (e) {
     ? (clickHappened = true)
     : (clickHappened = false);
   console.log(clickHappened);
-  if (clickHappened === true) {
+  if (clickHappened === true && missedCount < 5) {
     targetList.pop();
     animated();
     gameScore++;
     score.textContent = `${gameScore}`;
-  }
-  if (clickHappened === false) {
+  } else if (clickHappened === false) {
     missedCount++;
     missed.textContent = `${missedCount}`;
   }
   if (missedCount >= 5) {
     missed.textContent = "5 GAME OVER! GG!";
-    score.textContent = gameScore;
-    ctx.clearRect(0, 0, game.width, game.height);
+    // gameScore++;
+    gameScore -= 1;
+
+    // score.textContent = `${gameScore}`;
   }
 });
 
