@@ -10,7 +10,9 @@ let targetBreak = new Audio("Target Break.mp3");
 let gamePlayMusic = document.getElementById("gamePlayMusic");
 let menuMusic = document.getElementById("menuMusic");
 let gameOver = new Audio("Game Over.mp3");
+let gameOverTwo = new Audio("Game Over 2.mp3");
 gameOver.volume = 0.6;
+gameOverTwo.volume = 0.6;
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 window.onload = function () {
@@ -47,6 +49,7 @@ class Target {
 
     if (this.x + this.radius > game.width) {
       this.dx = -this.dx;
+      console.log();
     }
     if (this.x + this.radius < 70) {
       this.dx = -this.dx;
@@ -66,10 +69,18 @@ class Target {
 
 let targetList = [];
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 function animated() {
-  let x = Math.floor(Math.random() * (game.width - 30)) + 30;
-  let y = Math.floor(Math.random() * (game.height - 30)) + 30;
-  movingTarget = new Target(x, y, "#F1B2DC", "#466362", 35, 0.2);
+  let x = getRandomInt(71, 850);
+  let y = getRandomInt(71, 390);
+  console.log(game.width);
+  console.log(game.height);
+  movingTarget = new Target(x, y, "#F1B2DC", "#466362", 35, 0.15);
   targetList.push(movingTarget);
   movingTarget.render(ctx);
 
@@ -94,6 +105,7 @@ game.addEventListener("click", function (e) {
   let clickTargetDifference = Math.sqrt(
     (myTarget.x - e.offsetX) ** 2 + (myTarget.y - e.offsetY) ** 2
   );
+  console.log(clickTargetDifference);
   let clickHappened;
   clickTargetDifference < myTarget.radius
     ? (clickHappened = true)
@@ -109,10 +121,12 @@ game.addEventListener("click", function (e) {
   } else if (clickHappened === false) {
     missedCount++;
     missed.textContent = `${missedCount}`;
+    gameOver.play();
   }
   if (missedCount >= 5) {
     missed.textContent = "5 GAME OVER! GG!";
     gameOver.play();
+    gameOverTwo.play();
   }
 });
 
