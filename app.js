@@ -12,7 +12,7 @@ let menuMusic = document.getElementById("menuMusic");
 let gameOver = new Audio("Game Over.mp3");
 let gameOverTwo = new Audio("Game Over 2.mp3");
 gameOver.volume = 0.6;
-gameOverTwo.volume = 0.6;
+gameOverTwo.volume = 0.7;
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 window.onload = function () {
