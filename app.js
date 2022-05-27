@@ -80,7 +80,7 @@ function animated() {
   let y = getRandomInt(71, 390);
   console.log(game.width);
   console.log(game.height);
-  movingTarget = new Target(x, y, "#F1B2DC", "#466362", 35, 0.15);
+  movingTarget = new Target(x, y, "#F1B2DC", "#466362", 35, 0.2);
   targetList.push(movingTarget);
   movingTarget.render(ctx);
 
